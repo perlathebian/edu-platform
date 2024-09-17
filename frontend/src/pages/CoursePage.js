@@ -19,7 +19,6 @@ const CourseContent = styled.div`
   text-align: left;
 `;
 
-// New styled component for the heading
 const CourseHeading = styled.h1`
   text-align: center; /* Center the heading text */
   margin: 20px 0;
