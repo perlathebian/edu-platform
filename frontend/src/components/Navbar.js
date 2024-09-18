@@ -69,6 +69,13 @@ const AuthButton = styled.button`
   }
 `;
 
+const UsernameDisplay = styled.span`
+  color: ${({ theme }) => theme.textColor};
+  font-weight: bold;
+  margin-right: 15px;
+  font-size: 1em;
+`;
+
 export const Navbar = ({ toggleTheme, theme, menuItems = [], showHomeIcon = false, onHomeClick}) => {
     const [isMenuOpen, setMenuOpen] = useState(false);
     const navigate = useNavigate(); 
@@ -113,14 +120,14 @@ export const Navbar = ({ toggleTheme, theme, menuItems = [], showHomeIcon = fals
                 <NavTitle>Aptara.</NavTitle>
                 {token ? (
                   <>
-                    <span>{user}</span> 
-                    <button onClick={handleLogout}>Sign Out</button>
+                    <UsernameDisplay>{user}</UsernameDisplay>
+                    <AuthButton onClick={handleLogout}>Sign Out</AuthButton>
                   </>
                 ) : (
-                  <>
-                    <button onClick={() => navigate('/login')}>Login</button>
-                    <button onClick={() => navigate('/signup')}>Sign Up</button>
-                  </>
+                  <AuthButtonsContainer>
+                    <AuthButton onClick={handleLogin}>Login</AuthButton>
+                    <AuthButton onClick={handleSignup}>Sign Up</AuthButton>
+                  </AuthButtonsContainer>
                 )}
                 <IconButton onClick={toggleTheme}>{theme === 'light' ? '🌙' : '☀️'}</IconButton>
             </NavbarContainer>
