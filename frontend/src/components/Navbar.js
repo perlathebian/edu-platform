@@ -49,6 +49,26 @@ const MenuDropdown = styled.div`
   z-index: 999;
 `;
 
+const AuthButtonsContainer = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
+const AuthButton = styled.button`
+  background-color: ${({ theme }) => theme.textColor};
+  color: ${({ theme }) => theme.background};
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.background};
+    color: ${({ theme }) => theme.textColor};
+    border: 1px solid ${({ theme }) => theme.textColor};
+  }
+`;
+
 export const Navbar = ({ toggleTheme, theme, menuItems = [], showHomeIcon = false, onHomeClick}) => {
     const [isMenuOpen, setMenuOpen] = useState(false);
     const navigate = useNavigate(); 
@@ -63,6 +83,24 @@ export const Navbar = ({ toggleTheme, theme, menuItems = [], showHomeIcon = fals
         }
         setMenuOpen(false); // Close the menu after clicking
     };
+
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('username'); // We'll store this after login
+
+    const handleLogin = () => {
+      navigate('/login');
+    };
+  
+    const handleSignup = () => {
+      navigate('/signup');
+    };
+
+    const handleLogout = () => {
+      // Clear token and user info
+      localStorage.removeItem('token');
+      localStorage.removeItem('username');
+      navigate('/');
+    };
     
     return (
         <>    
@@ -73,6 +111,17 @@ export const Navbar = ({ toggleTheme, theme, menuItems = [], showHomeIcon = fals
                 )}
                 <IconButton onClick={handleMenuToggle}>☰</IconButton> 
                 <NavTitle>Aptara.</NavTitle>
+                {token ? (
+                  <>
+                    <span>{user}</span> 
+                    <button onClick={handleLogout}>Sign Out</button>
+                  </>
+                ) : (
+                  <>
+                    <button onClick={() => navigate('/login')}>Login</button>
+                    <button onClick={() => navigate('/signup')}>Sign Up</button>
+                  </>
+                )}
                 <IconButton onClick={toggleTheme}>{theme === 'light' ? '🌙' : '☀️'}</IconButton>
             </NavbarContainer>
 

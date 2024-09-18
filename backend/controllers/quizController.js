@@ -44,23 +44,6 @@ const getQuestionById = async (req, res) => {
 };
 
 
-// Example: Create a new question (if implementing POST)
-// const createQuestion = async (req, res) => {
-//   const errors = validationResult(req);
-//   if (!errors.isEmpty()) {
-//     return res.status(400).json({ errors: errors.array() });
-//   }
-
-//   const { topic, question_text } = req.body;
-//   try {
-//     const [result] = await db.query('INSERT INTO questions (topic, question_text) VALUES (?, ?)', [topic, question_text]);
-//     res.status(201).json({ id: result.insertId, topic_id, question_text });
-//   } catch (error) {
-//     console.error('Error creating question:', error);
-//     res.status(500).json({ message: 'Error creating question', error });
-//   }
-// };
-
 
 module.exports = {
   getQuestionsByTopic,

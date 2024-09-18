@@ -11,18 +11,4 @@ router.get('/questions/:id', getQuestionById);
 // routes/quizRoutes.js
 
 
-
-// POST /api/questions - Create a new question
-// router.post(
-//   '/questions',
-//   [
-//     body('topic').notEmpty().withMessage('Topic is required'),
-//     body('question_text').notEmpty().withMessage('Question text is required')
-//   ],
-//   createQuestion
-// );
-
-
-
-
 module.exports = router;

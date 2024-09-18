@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 const db = require('./config/db'); // Import the database connection
 const helmet = require('helmet');
 const codeRunner = require('./codeRunner');
+const authRoutes = require('./routes/authRoutes');
 
 // Load environment variables
 dotenv.config();
@@ -19,6 +20,7 @@ app.use(cors());
 app.use(express.json());
 // Use the codeRunner router for code execution
 app.use('/api', codeRunner);
+app.use('/api/auth', authRoutes);
 
 // Import Routes
 const quizRoutes = require('./routes/quizRoutes');
