@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, useNavigate  } from 'react-router-dom';
 import styled from 'styled-components';
 import { Navbar } from '../components/Navbar';
+import CodeEditor from '../components/CodeEditor';
 
 const TopicPageContainer = styled.div`
   padding: 80px 20px; /* Adjust for fixed navbar */
@@ -88,12 +89,23 @@ export const TopicPage = ({ toggleTheme, theme }) => {
   const { courseName, topicName } = useParams(); // Get course and topic name from URL params
   const navigate = useNavigate();
 
+  const editorTheme = theme === 'dark' ? 'vs-dark' : 'light';
+
   // Define content for each topic (to be replaced with dynamic or converted content later)
   const topicContent = {
     java: {
       'basic-syntax': (
         <>
           <h2>Basic Syntax and Data Types in Java</h2>
+          <CodeEditor
+        language="java"
+        initialCode={`public class HelloWorld {
+          public static void main(String[] args) {
+              System.out.println("Hello, World!"); // Prints "Hello, World!"
+          }
+        }`}
+        theme={editorTheme}
+      />
           <p>
             Java has a straightforward syntax and supports various data types to handle different kinds of information. Let's explore the basic syntax and data types:
           </p>

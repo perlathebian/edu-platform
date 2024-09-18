@@ -5,6 +5,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const db = require('./config/db'); // Import the database connection
 const helmet = require('helmet');
+const codeRunner = require('./codeRunner');
 
 // Load environment variables
 dotenv.config();
@@ -16,6 +17,8 @@ const PORT = process.env.PORT || 5000;
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+// Use the codeRunner router for code execution
+app.use('/api', codeRunner);
 
 // Import Routes
 const quizRoutes = require('./routes/quizRoutes');
