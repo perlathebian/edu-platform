@@ -101,12 +101,17 @@ const AddQuestionPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');// JWT token for teacher authentication
+    
+    if (!token) {
+      alert('You are not logged in as a teacher.');
+      return;
+    }
 
-    const response = await fetch('http://localhost:5000/api/quiz/add-question', {
+    const response = await fetch('http://localhost:5000/api/add-question', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`
       },
       body: JSON.stringify({ topic, question_text: questionText, answers }),
     });

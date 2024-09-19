@@ -16,6 +16,6 @@ router.get('/questions/:id', getQuestionById);
 router.post('/quiz/submit', submitQuizAnswers);
 
 // New route for adding questions (Teacher Only)
-router.post('/quiz/add-question', requireTeacherRole, addQuestion);
+router.post('/add-question', requireTeacherRole, addQuestion);
 
 module.exports = router;

@@ -79,6 +79,8 @@ const submitQuizAnswers = async (req, res) => {
 };
 
 const addQuestion = async (req, res) => {
+  console.log('Add Question request received:', req.body); // Log the request body
+  console.log('Headers:', req.headers); // Log the headers
   const { topic, question_text, answers } = req.body;
 
   try {
