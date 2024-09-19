@@ -7,6 +7,7 @@ import { CoursePage } from './pages/CoursePage';
 import { TopicPage } from './pages/TopicPage';
 import { Signup } from './pages/Signup';
 import { Login } from './pages/Login';
+import QuizPage from './pages/QuizPage';
 import GlobalStyle from './themes/GlobalStyle';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -47,6 +48,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <TopicPage toggleTheme={toggleTheme} theme={theme} />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/courses/:courseName/topics/:topicName/quiz" 
+            element={
+              <ProtectedRoute>
+                <QuizPage toggleTheme={toggleTheme} theme={theme} />
               </ProtectedRoute>
             } 
           />

@@ -1,3 +1,5 @@
+-- backend/schema.sql
+
 -- Create the questions table
 CREATE TABLE questions (
     CREATE TABLE questions (

@@ -91,6 +91,11 @@ export const TopicPage = ({ toggleTheme, theme }) => {
 
   const editorTheme = theme === 'dark' ? 'vs-dark' : 'light';
 
+
+  const handleAttemptQuiz = () => {
+    navigate(`/courses/${courseName}/topics/${topicName}/quiz`);
+  };
+
   // Define content for each topic (to be replaced with dynamic or converted content later)
   const topicContent = {
     java: {
@@ -220,7 +225,7 @@ export const TopicPage = ({ toggleTheme, theme }) => {
           </p>
           <QuizSection>
             <QuizHeader>Quiz</QuizHeader>
-            <QuizButton onClick={() => navigate(`/quizzes/java/basic-syntax`)}>Attempt Quiz</QuizButton>
+            <QuizButton onClick={handleAttemptQuiz}>Attempt Quiz</QuizButton>
           </QuizSection>
         </>
       ),

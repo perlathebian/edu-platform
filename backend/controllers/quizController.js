@@ -1,3 +1,5 @@
+
+
 const db = require('../config/db');
 //const { validationResult } = require('express-validator');
 
@@ -43,9 +45,41 @@ const getQuestionById = async (req, res) => {
   }
 };
 
+const submitQuizAnswers = async (req, res) => {
+  const { userId, answers } = req.body; // answers contain questionId and selectedAnswerId
 
+  try {
+    let correctAnswersCount = 0;
+
+    // Loop through each submitted answer and check correctness
+    for (let answer of answers) {
+      const { questionId, selectedAnswerId } = answer;
+
+      // Fetch the correct answer from the database
+      const [correctAnswer] = await db.query('SELECT * FROM answers WHERE question_id = ? AND is_correct = 1', [questionId]);
+
+      // Check if the user's selected answer matches the correct one
+      if (correctAnswer && correctAnswer.length > 0 && correctAnswer[0].id === selectedAnswerId) {
+        correctAnswersCount++; // Increment score if the answer is correct
+      }
+
+      // Optionally, you can save the user's attempt to the `user_quiz_attempts` table
+      await db.query(
+        'INSERT INTO user_quiz_attempts (user_id, question_id, selected_answer_id) VALUES (?, ?, ?)',
+        [userId, questionId, selectedAnswerId]
+      );
+    }
+
+    // Send the total correct answers back to the frontend
+    res.json({ correctAnswers: correctAnswersCount });
+  } catch (error) {
+    console.error('Error submitting quiz:', error);
+    res.status(500).json({ message: 'Error submitting quiz', error });
+  }
+};
 
 module.exports = {
   getQuestionsByTopic,
-  getQuestionById
+  getQuestionById,
+  submitQuizAnswers
 };

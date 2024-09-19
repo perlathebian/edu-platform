@@ -1,6 +1,8 @@
+// backend/routes/quizRoutes.js
+
 const express = require('express');
 const router = express.Router();
-const { getQuestionsByTopic, getQuestionById } = require('../controllers/quizController');
+const { getQuestionsByTopic, getQuestionById, submitQuizAnswers } = require('../controllers/quizController');
 //const { body } = require('express-validator');
 
 // GET /api/topics/:topicId/questions - Get all questions for a topic
@@ -10,5 +12,7 @@ router.get('/topics/:topic/questions', getQuestionsByTopic);
 router.get('/questions/:id', getQuestionById);
 // routes/quizRoutes.js
 
+// POST /api/quiz/submit - Submit quiz answers
+router.post('/quiz/submit', submitQuizAnswers);
 
 module.exports = router;
