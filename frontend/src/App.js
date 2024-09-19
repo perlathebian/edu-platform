@@ -11,7 +11,6 @@ import QuizPage from './pages/QuizPage';
 import AddQuestionPage from './pages/AddQuestionPage';
 import GlobalStyle from './themes/GlobalStyle';
 import ProtectedRoute from './components/ProtectedRoute';
-import TeacherProtectedRoute from './components/TeacherProtectedRoute';
 
 function App() {
   const [theme, setTheme] = useState('light');

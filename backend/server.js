@@ -1,6 +1,7 @@
 // server.js
 
 const express = require('express');
+const bodyParser = require('body-parser');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const db = require('./config/db'); // Import the database connection
@@ -13,6 +14,9 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+// Middleware for parsing request body
+app.use(bodyParser.json());
 
 // Middleware
 app.use(helmet());
@@ -46,7 +50,6 @@ app.get('/test-db', async (req, res) => {
 
 // Use Quiz Routes
 app.use('/api', quizRoutes); 
-
 // 404 Route
 app.use((req, res, next) => {
     res.status(404).json({ message: 'Endpoint not found' });

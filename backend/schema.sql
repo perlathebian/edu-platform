@@ -2,7 +2,6 @@
 
 -- Create the questions table
 CREATE TABLE questions (
-    CREATE TABLE questions (
   id INT NOT NULL AUTO_INCREMENT,
   topic VARCHAR(255),
   question_text TEXT,
