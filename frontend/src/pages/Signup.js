@@ -44,6 +44,7 @@ export const Signup = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('student'); 
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -55,7 +56,7 @@ export const Signup = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, email, password }),
+        body: JSON.stringify({ username, email, password, role }),
       });
 
       const data = await response.json();
@@ -95,6 +96,11 @@ export const Signup = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
+        <label>Role:</label>
+        <select value={role} onChange={(e) => setRole(e.target.value)}>
+            <option value="student">Student</option>
+            <option value="teacher">Teacher</option>
+          </select>
         <Button type="submit">Sign Up</Button>
       </Form>
     </FormContainer>

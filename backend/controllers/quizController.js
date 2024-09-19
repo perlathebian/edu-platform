@@ -78,8 +78,28 @@ const submitQuizAnswers = async (req, res) => {
   }
 };
 
+const addQuestion = async (req, res) => {
+  const { topic, question_text, answers } = req.body;
+
+  try {
+    const [result] = await db.query('INSERT INTO questions (topic, question_text) VALUES (?, ?)', [topic, question_text]);
+    const questionId = result.insertId;
+
+    for (let answer of answers) {
+      await db.query('INSERT INTO answers (question_id, answer_text, is_correct) VALUES (?, ?, ?)', 
+        [questionId, answer.answer_text, answer.is_correct]);
+    }
+
+    res.json({ message: 'Question added successfully!' });
+  } catch (error) {
+    console.error('Error adding question:', error);
+    res.status(500).json({ message: 'Error adding question', error });
+  }
+};
+
 module.exports = {
   getQuestionsByTopic,
   getQuestionById,
-  submitQuizAnswers
+  submitQuizAnswers,
+  addQuestion
 };

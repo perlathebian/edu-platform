@@ -2,8 +2,8 @@
 
 const express = require('express');
 const router = express.Router();
-const { getQuestionsByTopic, getQuestionById, submitQuizAnswers } = require('../controllers/quizController');
-//const { body } = require('express-validator');
+const { addQuestion, getQuestionsByTopic, getQuestionById, submitQuizAnswers } = require('../controllers/quizController');
+const requireTeacherRole = require('../middleware/roleMiddleware');
 
 // GET /api/topics/:topicId/questions - Get all questions for a topic
 router.get('/topics/:topic/questions', getQuestionsByTopic);
@@ -14,5 +14,8 @@ router.get('/questions/:id', getQuestionById);
 
 // POST /api/quiz/submit - Submit quiz answers
 router.post('/quiz/submit', submitQuizAnswers);
+
+// New route for adding questions (Teacher Only)
+router.post('/add-question', requireTeacherRole, addQuestion);
 
 module.exports = router;

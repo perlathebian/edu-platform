@@ -7,14 +7,15 @@ const JWT_SECRET = 'my_very_secure_secret';
 
 // User Sign-Up
 const signup = async (req, res) => {
-    const { username, email, password } = req.body;
+    const { username, email, password, role } = req.body;
     
     try {
       // Hash the password before saving
       const hashedPassword = await bcrypt.hash(password, 10); // 10 is the salt rounds
   
       // Insert user into the database
-      await db.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [username, email, hashedPassword]);
+      await db.query('INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)', 
+        [username, email, hashedPassword, role || 'student']);
       
       res.status(201).json({ message: 'User created successfully' });
     } catch (err) {
@@ -43,8 +44,12 @@ const login = async (req, res) => {
         return res.status(400).json({ message: 'Invalid email or password' });
       }
   
-      // Generate and send a token (if using JWT or any session)
-      const token = jwt.sign({ userId: user[0].user_id, email: user[0].email }, JWT_SECRET, { expiresIn: '1h' }); 
+       // Generate and send a token (include role in the token)
+       const token = jwt.sign(
+        { userId: user[0].user_id, email: user[0].email, role: user[0].role }, // Add role here
+        JWT_SECRET, 
+        { expiresIn: '1h' }
+    );
       console.log("Generated Token:", token); // Add this log
 
       res.json({ token, user: { username: user[0].username, email: user[0].email } });
