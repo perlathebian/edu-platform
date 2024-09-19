@@ -40,7 +40,7 @@ const SubmitButton = styled.button`
 `;
 
 const QuizPage = () => {
-  const { topicName } = useParams();
+  const { topicName, courseName } = useParams();
   const [questions, setQuestions] = useState([]);
   const [userAnswers, setUserAnswers] = useState({});
   const [score, setScore] = useState(null);
@@ -110,9 +110,11 @@ const QuizPage = () => {
       body: JSON.stringify({ userId, answers }),
     });
 
+    const result = await response.json();
+
     if (response.ok) {
-      alert('Quiz submitted successfully!');
-      navigate('/courses'); // Redirect to the course page or some other page
+      alert(`Quiz submitted successfully! You got ${result.correctAnswers} out of ${questions.length} correct.`);
+      navigate(`/courses/${courseName}/topics/${topicName}`); // Redirect to the course page or some other page
     } else {
       alert('Error submitting quiz');
     }
