@@ -33,8 +33,23 @@ function App() {
           <Route path="/" element={<MainPage toggleTheme={toggleTheme} theme={theme} />} />
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/courses/:courseName" element={<ProtectedRoute><CoursePage toggleTheme={toggleTheme} theme={theme} /></ProtectedRoute>} />
-          <Route path="/courses/:courseName/topics/:topicName" element={<ProtectedRoute><TopicPage toggleTheme={toggleTheme} theme={theme} /></ProtectedRoute>} />
+          
+          <Route 
+            path="/courses/:courseName" 
+            element={
+              <ProtectedRoute>
+                <CoursePage toggleTheme={toggleTheme} theme={theme} />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/courses/:courseName/topics/:topicName" 
+            element={
+              <ProtectedRoute>
+                <TopicPage toggleTheme={toggleTheme} theme={theme} />
+              </ProtectedRoute>
+            } 
+          />
         </Routes>
       </Router>
     </ThemeProvider>

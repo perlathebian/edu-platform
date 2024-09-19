@@ -6,8 +6,8 @@ const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('token');
 
   if (!token) {
-    // Redirect to login page if not authenticated
-    return <Navigate to="/login" replace />;
+    // If no token, redirect to the login page with a message
+    return <Navigate to="/login" replace state={{ message: 'You need to log in to access this content' }} />;
   }
 
   // If authenticated, render the children components

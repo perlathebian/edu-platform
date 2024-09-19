@@ -1,6 +1,6 @@
 // src/pages/Login.js
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const FormContainer = styled.div`
@@ -43,6 +43,7 @@ export const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const location = useLocation();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -77,6 +78,7 @@ export const Login = ({ onLogin }) => {
   return (
     <FormContainer>
       <h2>Login</h2>
+      {location.state && <p style={{ color: 'red' }}>{location.state.message}</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <Form onSubmit={handleSubmit}>
         <label>Email:</label>
