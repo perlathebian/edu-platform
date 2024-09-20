@@ -50,6 +50,7 @@ app.get('/test-db', async (req, res) => {
 
 // Use Quiz Routes
 app.use('/api', quizRoutes); 
+
 // 404 Route
 app.use((req, res, next) => {
     res.status(404).json({ message: 'Endpoint not found' });

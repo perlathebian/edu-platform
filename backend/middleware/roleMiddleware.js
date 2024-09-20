@@ -6,6 +6,7 @@ const JWT_SECRET = 'my_very_secure_secret';
 
 const requireTeacherRole = async (req, res, next) => {
   const token = req.headers.authorization?.split(' ')[1];
+  console.log('Token in middleware:', token);
 
   if (!token) {
     console.log("No token found");

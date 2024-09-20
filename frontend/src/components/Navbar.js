@@ -92,7 +92,15 @@ export const Navbar = ({ toggleTheme, theme, menuItems = [], showHomeIcon = fals
     };
 
     const token = localStorage.getItem('token');
-    const user = localStorage.getItem('username'); // We'll store this after login
+    let role = null;
+    let user = null;
+    // const user = localStorage.getItem('username'); // We'll store this after login
+
+    if (token) {
+      const decodedToken = JSON.parse(atob(token.split('.')[1]));
+      role = decodedToken.role; // Extract the role from the decoded token
+      user = decodedToken.email; // You can extract more info if needed, like email or username
+    }
 
     const handleLogin = () => {
       navigate('/login');
@@ -108,6 +116,10 @@ export const Navbar = ({ toggleTheme, theme, menuItems = [], showHomeIcon = fals
       localStorage.removeItem('username');
       navigate('/');
     };
+
+    const goToTeacherPage = () => {
+      navigate('/teacher');
+    };
     
     return (
         <>    
@@ -121,6 +133,9 @@ export const Navbar = ({ toggleTheme, theme, menuItems = [], showHomeIcon = fals
                 {token ? (
                   <>
                     <UsernameDisplay>{user}</UsernameDisplay>
+                    {role === 'teacher' && (
+                      <IconButton onClick={goToTeacherPage}>👩‍🏫</IconButton> // Teacher icon
+                    )}
                     <AuthButton onClick={handleLogout}>Sign Out</AuthButton>
                   </>
                 ) : (

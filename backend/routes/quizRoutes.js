@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const { addQuestion, getQuestionsByTopic, getQuestionById, submitQuizAnswers } = require('../controllers/quizController');
+const { deleteQuestion, addQuestion, getQuestionsByTopic, getQuestionById, submitQuizAnswers } = require('../controllers/quizController');
 const requireTeacherRole = require('../middleware/roleMiddleware');
 
 // GET /api/topics/:topicId/questions - Get all questions for a topic
@@ -17,5 +17,9 @@ router.post('/quiz/submit', submitQuizAnswers);
 
 // New route for adding questions (Teacher Only)
 router.post('/add-question', requireTeacherRole, addQuestion);
+
+// New route for deleting questions (Teacher Only)
+router.delete('/delete-question', requireTeacherRole, deleteQuestion);
+
 
 module.exports = router;

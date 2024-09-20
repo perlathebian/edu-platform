@@ -118,7 +118,7 @@ const AddQuestionPage = () => {
 
     if (response.ok) {
       alert('Question added successfully!');
-      navigate('/courses');
+      navigate('/teacher');
     } else {
       alert('Error adding question');
     }

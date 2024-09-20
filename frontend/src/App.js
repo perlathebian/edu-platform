@@ -9,6 +9,8 @@ import { Signup } from './pages/Signup';
 import { Login } from './pages/Login';
 import QuizPage from './pages/QuizPage';
 import AddQuestionPage from './pages/AddQuestionPage';
+import DeleteQuestionPage from './pages/DeleteQuestionPage';
+import TeacherPage from './pages/TeacherPage';
 import GlobalStyle from './themes/GlobalStyle';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -36,6 +38,30 @@ function App() {
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
           <Route path="/signup" element={<Signup />} />
           
+          <Route 
+            path="/teacher" 
+            element={
+              <ProtectedRoute allowedRoles={['teacher']}> 
+                <TeacherPage />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/add-question" 
+            element={
+              <ProtectedRoute allowedRoles={['teacher']}>  
+                <AddQuestionPage />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/delete-question" 
+            element={
+              <ProtectedRoute allowedRoles={['teacher']}> 
+                <DeleteQuestionPage />
+              </ProtectedRoute>
+            } 
+          />
           <Route 
             path="/courses/:courseName" 
             element={

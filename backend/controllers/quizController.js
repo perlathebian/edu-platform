@@ -99,9 +99,40 @@ const addQuestion = async (req, res) => {
   }
 };
 
+const deleteQuestion = async (req, res) => {
+  const { topic, question_text } = req.body;
+  console.log('Authorization header:', req.headers.authorization); 
+  console.log('Delete request received:', { topic, question_text }); 
+
+  try {
+    // Get the question ID
+    const [question] = await db.query('SELECT id FROM questions WHERE topic = ? AND question_text = ?', [topic, question_text]);
+
+    if (question.length === 0) {
+      return res.status(404).json({ message: 'Question not found' });
+    }
+
+    const questionId = question[0].id;
+
+    // Delete the answers related to the question
+    await db.query('DELETE FROM answers WHERE question_id = ?', [questionId]);
+
+    // Delete the question itself
+    await db.query('DELETE FROM questions WHERE id = ?', [questionId]);
+
+    res.json({ message: 'Question and related answers deleted successfully!' });
+  } catch (error) {
+    console.error('Error deleting question:', error);
+    res.status(500).json({ message: 'Error deleting question', error });
+  }
+};
+
+
+
 module.exports = {
   getQuestionsByTopic,
   getQuestionById,
   submitQuizAnswers,
-  addQuestion
+  addQuestion,
+  deleteQuestion,
 };
